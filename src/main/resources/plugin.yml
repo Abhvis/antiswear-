@@ -1,0 +1,6 @@
+name: BadWordXeo
+version: '0.1'
+main: com.eo.badwordxeo.BadWordsPlugin
+api-version: '1.20'
+author: Xeoopis
+description: Plugin Bukkit untuk memblokir pesan chat yang mengandung kata-kata tidak diinginkan.
