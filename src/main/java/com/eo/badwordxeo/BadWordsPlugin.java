@@ -20,7 +20,7 @@ public class BadWordsPlugin extends JavaPlugin implements Listener {
     public void onEnable() {
         saveDefaultConfig();
         loadBadWordsList();
-        getServer().getPluginManager().registerEvents(this, this); // Daftarkan listener
+        getServer().getPluginManager().registerEvents(this, this); 
         getLogger().info("Plugin BadWordsPlugin telah di-enable!");
     }
 
