@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BadWordsPlugin extends JavaPlugin implements Listener {
 
@@ -42,13 +43,13 @@ public class BadWordsPlugin extends JavaPlugin implements Listener {
                 for (String arg : args) {
                     newBadWords.add(arg.toLowerCase());
                 }
-                getConfig().set("badwords", newBadWords.stream().toList());
+                getConfig().set("badwords", newBadWords.stream().collect(Collectors.toList()));
                 saveConfig();
                 loadBadWordsList();
                 sender.sendMessage("Daftar kata-kata yang dilarang berhasil diperbarui.");
                 return true;
             } else {
-                sender.sendMessage("You don't have permission to use this command.");
+                sender.sendMessage("Kamu tidak memiliki izin untuk menggunakan perintah ini.");
                 return true;
             }
         }
@@ -63,7 +64,7 @@ public class BadWordsPlugin extends JavaPlugin implements Listener {
 
         for (String word : words) {
             if (isBadWord(word.toLowerCase())) {
-                event.setCancelled(true); //
+                event.setCancelled(true);
                 player.sendMessage("Pesanmu mengandung kata-kata yang tidak diperbolehkan.");
                 getLogger().warning(player.getName() + " mencoba mengirim pesan dengan kata-kata yang dilarang.");
                 return;
