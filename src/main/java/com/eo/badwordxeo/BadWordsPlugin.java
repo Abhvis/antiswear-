@@ -8,12 +8,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class BadWordsPlugin extends JavaPlugin implements Listener {
 
-    private List<String> badWords;
+    private Set<String> badWords;
 
     @Override
     public void onEnable() {
@@ -37,11 +38,11 @@ public class BadWordsPlugin extends JavaPlugin implements Listener {
                     return true;
                 }
 
-                List<String> newBadWords = new ArrayList<>();
+                Set<String> newBadWords = new HashSet<>();
                 for (String arg : args) {
                     newBadWords.add(arg.toLowerCase());
                 }
-                getConfig().set("badwords", newBadWords);
+                getConfig().set("badwords", newBadWords.stream().toList());
                 saveConfig();
                 loadBadWordsList();
                 sender.sendMessage("Daftar kata-kata yang dilarang berhasil diperbarui.");
@@ -71,7 +72,7 @@ public class BadWordsPlugin extends JavaPlugin implements Listener {
     }
 
     private void loadBadWordsList() {
-        badWords = getConfig().getStringList("badwords");
+        badWords = new HashSet<>(getConfig().getStringList("badwords"));
     }
 
     private boolean isBadWord(String word) {
